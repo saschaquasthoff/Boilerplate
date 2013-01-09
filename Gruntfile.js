@@ -6,6 +6,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-mincss');
 
 
     // Config
@@ -141,6 +142,18 @@ module.exports = function(grunt) {
                 forcecompile: true,
                 debugsass: false,
                 images: 'dev/assets/sprites' // reicht das? oder muss hier zusätzlich auch 'assets/css-images' eingetragen sein? oder gar nur 'assets/'?
+            }
+        },
+
+
+        // minify css files for deployment
+        mincss: {
+            wordpress: {
+                files: {
+                    '<%= concat.wordpressCSS.dest %>': [
+                        '<%= concat.wordpressCSS.src %>'
+                    ]
+                }
             }
         }
 
