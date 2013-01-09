@@ -1,0 +1,209 @@
+
+// @content         Mixins
+// @description     SASS-Mixins zur Vereinfachung von komplexen Arbeitschritten
+// @file            partials/_mixins.scss
+// @date            2012-09-11
+// @author          Sascha Quasthoff <sascha@quasthoff.de>
+// -----------------------------------------------------------------------------
+
+
+
+
+
+// Welche browserspezifischen Prefixe soll das ´prefix´-Mixin ausgeben.
+// -----------------------------------------------------------------------------
+
+$_PREFIX_SUPPORT_WEBKIT    : true;
+$_PREFIX_SUPPORT_MOZILLA   : true;
+$_PREFIX_SUPPORT_MICROSOFT : true;
+$_PREFIX_SUPPORT_OPERA     : true;
+$_PREFIX_SUPPORT_W3C       : true;
+
+
+
+
+
+// Erzeugt eine CSS-Eigenschaft mit allen Browser-Prefixen.
+// @param {String} property Der Name der CSS-Eigenschaft.
+// @param {String} value Der Wert der CSS-Eigenschaft.
+// @param {Boolean} webkit Ausgabe mit Webkit-Prefix (-webkit) (default: true)
+// @param {Boolean} moz Ausgabe mit Mozilla-Prefix (-moz) (default: true)
+// @param {Boolean} ms Ausgabe mit Microsoft-Prefix (-ms) (default: true)
+// @param {Boolean} op Ausgabe mit Opera-Prefix (-o) (default: true)
+// @param {Boolean} w3c Ausgabe ohne Prefix (default: true)
+// -----------------------------------------------------------------------------
+
+@mixin prefix($property,
+              $value,
+              $webkit:    $_PREFIX_SUPPORT_WEBKIT,
+              $moz:       $_PREFIX_SUPPORT_MOZILLA,
+              $microsoft: $_PREFIX_SUPPORT_MICROSOFT,
+              $opera:     $_PREFIX_SUPPORT_OPERA,
+              $w3c:       $_PREFIX_SUPPORT_W3C
+             ) {
+    @if $webkit    { -webkit-#{$property}: $value; }
+    @if $moz       {    -moz-#{$property}: $value; }
+    @if $microsoft {     -ms-#{$property}: $value; }
+    @if $opera     {      -o-#{$property}: $value; }
+    @if $w3c       {         #{$property}: $value; }
+}
+
+
+
+
+
+// Erzeugt ein browser-übergreifendes ´box-sizing´.
+// @param {String} mode Der Modus für das box-sizing (default: border-box).
+// -----------------------------------------------------------------------------
+
+@mixin box-sizing($mode: border-box){
+    @include prefix(
+        'box-sizing',
+        $mode,
+        -webkit,
+        -moz,
+        not -ms,
+        not -o,
+        w3c
+    );
+}
+
+
+
+
+
+// Erzeugt einen browser-übergreifenden ´border-radius´.
+// @param {String} radii Der horizontale (und auch der vertikale) Radius (default: 3px)
+// -----------------------------------------------------------------------------
+
+@mixin border-radius($radii: 3px) {
+    @include prefix(
+        'border-radius',
+        $radii,
+        -webkit,
+        -moz,
+        not -ms,
+        not -o,
+        w3c
+    );
+}
+
+
+
+
+
+// @content         border-top-left-radius
+// @description     browser-übergreifender border radius oben links
+// @params          (radii) der horizontale (und auch der vertikale) (default: 3px)
+// -----------------------------------------------------------------------------
+
+@mixin border-top-left-radius($radii: 3px) {
+    @include prefix(
+        'border-top-left-radius',
+        $radii,
+        -webkit,
+        -moz,
+        not -ms,
+        not -o,
+        w3c
+    );
+}
+
+
+
+
+
+// @content         border-top-right-radius
+// @description     browser-übergreifender border radius oben rechts
+// @params          (radii) der horizontale (und auch der vertikale) (default: 3px)
+// -----------------------------------------------------------------------------
+
+@mixin border-top-right-radius($radii: 3px) {
+    @include prefix(border-top-right-radius, $radii, -webkit, -moz, not -ms, not -o, w3c);
+}
+
+
+
+
+
+// @content         border-bottom-right-radius
+// @description     browser-übergreifender border radius unten rechts
+// @params          (radii) der horizontale (und auch der vertikale) (default: 3px)
+// -----------------------------------------------------------------------------
+
+@mixin border-bottom-right-radius($radii: 3px) {
+    @include prefix(border-bottom-right-radius, $radii, -webkit, -moz, not -ms, not -o, w3c);
+}
+
+
+
+
+
+// @content         border-bottom-left-radius
+// @description     browser-übergreifender border radius unten links
+// @params          (radii) der horizontale (und auch der vertikale) (default: 3px)
+// -----------------------------------------------------------------------------
+
+@mixin border-bottom-left-radius($radii: 3px) {
+    @include prefix(border-bottom-left-radius, $radii, -webkit, -moz, not -ms, not -o, w3c);
+}
+
+
+
+
+
+// @content             gradient
+// @description         ein 'linear-gradient' mit allen Browser-Prefixen
+// @params              (dir) die Richtung des Verlaufs (default: top)
+//                      (start) der ersten Verlaufspunktes (default: #fff 0)
+//                      (stop) alle weiteren Verlaufspunkte (default: #000 100%)
+// -----------------------------------------------------------------------------
+
+@mixin gradient($dir: top, $start: #fff 0, $stop: #000 100%) {
+    @if $_PREFIX_SUPPORT_WEBKIT    { -webkit-background-image: linear-gradient($dir, $start, $stop); }
+    @if $_PREFIX_SUPPORT_MOZILLA   {    -moz-background-image: linear-gradient($dir, $start, $stop); }
+    @if $_PREFIX_SUPPORT_MICROSOFT {      -o-background-image: linear-gradient($dir, $start, $stop); }
+    @if $_PREFIX_SUPPORT_OPERA     {     -ms-background-image: linear-gradient($dir, $start, $stop); }
+    @if $_PREFIX_SUPPORT_W3C       {         background-image: linear-gradient($dir, $start, $stop); }
+}
+
+
+
+
+
+// @content         box-shadow
+// @description     browser-übergreifende Box-Schatten
+// @params          (shadows) die Definitionen der Schattens
+// -----------------------------------------------------------------------------
+
+// @mixin box-shadow($shadows...) {
+//     @include prefix(box-shadow, $shadows, -webkit, not -moz, not -ms, not -o, w3c);
+// }
+
+
+
+
+
+// @content         opacity
+// @description     browser-übergreifende Transparenz
+// @params          (opacity) der Transparenz-Wert (default: 0.4)
+// -----------------------------------------------------------------------------
+
+@mixin opacity($opacity: 0.4) {
+    @include prefix(opacity, $opacity, -webkit, -moz, not -ms, not -o, w3c)
+}
+
+
+
+
+
+// @content         rem-size
+// @description     erzeugt eine font-size
+// ------------------------------------
+
+@mixin rem-size($property, $value) {
+    #{$property}: #{$value}px;
+    #{$property}: #{$value / $base-fontsize-value}rem;
+    // #{$property}: $value / 10 * $base-fontsize;
+    // #{$property}: #{$value / 10}rem;
+}

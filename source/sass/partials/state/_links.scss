@@ -1,0 +1,21 @@
+
+// @content         links
+// @description     statusabhängige Linkstile
+// -----------------------------------------------------------------------------
+
+a:visited {
+    color: #551a8b;
+}
+
+a:hover {
+    color: #06e;
+}
+
+a:focus {
+    outline: thin dotted;
+}
+
+a:hover,
+a:active {
+    outline: 0;
+}

@@ -1,0 +1,18 @@
+
+// @content         vars
+// @description     SASS-Variablen
+// -----------------------------------------------------------------------------
+
+
+
+// font definitions
+$headline-fontfamily: 'georgia, serif';
+$copytext-fontfamily: 'helvetica, arial, sans-serif';
+
+$base-fontsize-value: 10; // needed for calculations
+$base-fontsize: #{$base-fontsize-value}px;
+
+$copytext-fontsize-value: 13; // needed for calculations
+$copytext-fontsize: #{$copytext-fontsize-value}px;
+
+$copytext-lineheight: 1.538461538; // = 20px

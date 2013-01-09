@@ -1,0 +1,17 @@
+
+// @content         layout
+// @description     das Grundlayout für alle Endgeräte
+// -----------------------------------------------------------------------------
+
+#canvas > header {
+    border-bottom: 1px solid #abc;
+}
+
+section {
+    margin: 20px 0;
+}
+
+footer {
+    clear: both;
+    border-top: 1px solid #abc;
+}

@@ -1,0 +1,38 @@
+
+// @content         forms
+// @description     Formular-Elemente
+// -----------------------------------------------------------------------------
+
+fieldset {
+    border: 1px solid #ddd;
+}
+
+legend {
+    font-size: 1.3em;
+    padding: 0 .4em;
+}
+
+label,
+input,
+textarea,
+select {
+    box-sizing: border-box;
+    color: #333;
+    font-size: 1.3em;
+    line-height: 1.4;
+}
+
+input[type=text],
+input[type=password],
+input[type=file],
+textarea,
+select {
+    width: 100%;
+    padding: .1em .2em;
+    border: 1px solid #ccc;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    margin-right: .4em;
+}

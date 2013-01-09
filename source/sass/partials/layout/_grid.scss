@@ -1,0 +1,92 @@
+
+// @content         the Grid
+// @description     der Aufbau des Grundrasters. Das Grundraster soll die
+//                  Möglichkeit bieten,
+//                  - eine Spaltenbreite anzugeben und
+//                  - einen Spaltenabstand zu definieren.
+//                  Anschliessend kann im Markup durch Angabe einer Klasse
+//                  (z.B. grid1 oder grid6) die Anzahl der Spalten angegeben
+//                  werden, die das Element breit sein soll. Dafür finden hier
+//                  diverse Vor-Berechnungen statt.
+//
+// @TODO            der Spaltenabstand liegt im Moment auf der .grid-column,
+//                  wäre aber auf der .grid-cell besser aufgehoben
+// -----------------------------------------------------------------------------
+
+
+
+
+
+// @content         grid variables
+// @description     die Variablen für das Grid
+// -----------------------------------------------------------------------------
+
+$gridWidth            : 100%;  // die Gesamt-Breite des Rasters
+$gridColumnCount      : 12;    // die Anzahl der Spalten
+$gridOuterGutter      : false; // soll aussen um das Raster ebenfalls ein Spaltenabstand sein?
+$gridGutterHorizontal : 10px;  // der horizontale Spaltenabstand
+$gridGutterVertical   : 10px;  // der vertikale Spaltenabstand
+
+
+
+
+
+// @content         grid functions
+// @description     SASS-Funktion zur Berechnung der Breite einer Spalte
+// @params          (columns) die Anzahl der Spalten, deren Breite berechnet wird
+// -----------------------------------------------------------------------------
+
+@function grid-width($columns) {
+    $gridColumnWidth: $gridWidth / $gridColumnCount;
+    @return $columns * $gridColumnWidth;
+}
+
+
+
+
+
+// @content         grid
+// @description     generelle Styles des Grundrasters
+// @selector        .grid-row
+// -----------------------------------------------------------------------------
+
+.grid {
+    overflow: hidden;
+
+    .grid-row {
+        clear: both;
+        @extend .clearfix;
+
+        @if $gridOuterGutter == false {
+            margin: -$gridGutterVertical/4 -$gridGutterHorizontal/4;
+
+            .grid-row {
+                margin: 0;
+            }
+        }
+
+        .grid-column {
+            float: left;
+
+            // die grid-cell erhält die visuellen Eigenschaften wie Rahmen,
+            // Hintergrundfarbe, etc.
+            .grid-cell {
+                display: block;
+                height: 2em;
+                margin: $gridGutterVertical/2 $gridGutterHorizontal/2;
+                padding: 1em;
+                background: #abc;
+                text-align: center;
+                line-height: 2;
+            }
+        }
+
+        // zu guter Letzt wird für jede mögliche Spaltenbreite eine Klasse erzeugt
+        @for $i from 1 through $gridColumnCount {
+            .grid-column-#{$i} {
+                @extend .grid-column;
+                width: grid-width($i);
+            }
+        }
+    }
+}

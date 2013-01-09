@@ -1,0 +1,43 @@
+
+// @content         form
+// @description     Formulare
+// -----------------------------------------------------------------------------
+
+
+
+
+
+// @content         control group
+// @description     Eine control group beinhaltet ein Formularfeld inkl. des
+//                  dazugehörigen Bezeichners. Sie kann aber auch eine Gruppe
+//                  von Radiobutton bzw. Checkboxen beinhalten.
+// @selector        .ctrl-group
+// -----------------------------------------------------------------------------
+
+.ctrl-group {
+    margin: 2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid #ddd;
+}
+
+.ctrl-label {
+    display: block;
+    padding-top: .2em;
+
+    @media screen and (min-width: 600px) {
+        float: left;
+        width: 20%;
+    }
+}
+
+.ctrl-hint {
+    margin: .2em .2em;
+    color: #666;
+    font-size: 1.3em;
+}
+
+.ctrl-field {
+    @media screen and (min-width: 600px) {
+        margin-left: 25%;
+    }
+}

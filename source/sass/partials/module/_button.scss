@@ -1,0 +1,114 @@
+
+// @content			button
+// @description		Button-Stile
+// -----------------------------------------------------------------------------
+
+
+
+
+
+// @content			variables
+// @description		Variablen, die spezifisch für Buttons benötigt werden
+// -----------------------------------------------------------------------------
+
+$btn-border-radius: .4em;
+
+
+
+
+
+// @content			button
+// @description		grundlegende Button-Stile
+// @selector		.btn
+// -----------------------------------------------------------------------------
+
+.btn {
+	display: inline-block;
+	padding: 0 .6em;
+	@include gradient(top, #eee 0%, #ccc 100%);
+	border: 1px solid #bbb;
+	@include border-radius($btn-border-radius);
+	color: #666;
+	font-size: 1.3em;
+	line-height: 2.2;
+	text-decoration: none;
+
+	&.is-selected,
+	&:hover,
+	&:active,
+	&:focus {
+		@include gradient(top, #ccc 0%, #eee 100%);
+		color: #333;
+	}
+}
+
+
+
+
+
+// @content			button group
+// @description		eine Button-Gruppe aus mehreren zusammenhängenden Buttons
+// @selector		.btn-group
+// -----------------------------------------------------------------------------
+
+.btn-group {
+	position: relative;
+
+	.btn {
+		float: left;
+		@include border-radius(0);
+
+		&:first-child {
+			@include border-radius($btn-border-radius);
+			@include border-radius($btn-border-radius);
+		}
+
+		&:last-of-type {
+			@include border-radius($btn-border-radius);
+			@include border-radius($btn-border-radius);
+		}
+
+		&:not(:first-child) {
+			border-left: 0;
+		}
+	}
+}
+
+
+
+
+
+// @content			button dropdown
+// @description		ein "Button", der beim Klick ein Dropdown-Menu aufklappt
+// @selector		.btn-dropdown
+// -----------------------------------------------------------------------------
+
+.btn-dropdown i {
+	display: inline-block;
+	width: 14px;
+	content: "";
+	margin-left: .6em;
+	padding-left: .6em;
+	border-left: 1px solid #aaa;
+	background: url("../img/icons/glyphicons_212_down_arrow.png");
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	margin: 0;
+	padding: 0;
+}
+
+.open .dropdown-menu,
+.btn-group:hover .dropdown-menu {
+	display: block;
+}
+
+.dropdown-menu li {
+	margin: 0;
+	list-style: none;
+}
