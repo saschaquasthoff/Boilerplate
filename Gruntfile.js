@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
 
+    // Load required tasks
+    grunt.loadNpmTasks('grunt-contrib-clean');
+
     // Config
     grunt.initConfig({
         pkg: '<json:package.json>',
@@ -20,6 +23,13 @@ module.exports = function(grunt) {
             // wordpress theme
             themeDir: 'bones/',
             wpTheme: '<%= dir.deploy %>wp-content/themes/<%= dir.themeDir %>'
+        },
+
+
+        // clean up deploy directory
+        clean: {
+            staging: [ '<%= dir.staging %>*' ],
+            wordpress: [ '<%= dir.deploy %>*' ]
         }
 
     });
