@@ -6,8 +6,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-mincss');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
 
     // Config
@@ -43,114 +43,139 @@ module.exports = function(grunt) {
             template: 'templates/',
 
             // wordpress theme
-            themeDir: 'bones/',
-            wpTheme: '<%= dir.deploy %>wp-content/themes/<%= dir.themeDir %>'
+            theme: 'bones/',
+            wpTheme: '<%= dir.deploy %>wp-content/themes/<%= dir.theme %>'
         },
 
 
-        // clean up deploy dir
+        // clean up deploy dir (grunt-contrib-clean)
         clean: {
             staging: [ '<%= dir.staging %>*' ],
             wordpress: [ '<%= dir.deploy %>*' ]
         },
 
 
-        // copy files from source to deploy or staging dir
+        // copy files from source to deploy or staging dir (grunt-contrib-copy)
         copy: {
 
             // static templates and webroot dir files
             staging: {
-                options: { flatten: true },
-                files: {
-                    '<%= dir.staging %>': [
-                        '<%= dir.source %><%= dir.template %>*.html',
-                        '<%= dir.source %><%= dir.assets %>*'
-                    ]
-                }
+                options: {
+                    flatten: true
+                },
+                src: [
+                    '<%= dir.source %><%= dir.template %>*.html',
+                    '<%= dir.source %><%= dir.assets %>*'
+                ],
+                dest: '<%= dir.staging %>'
             },
 
             // fonts, images
             stagingAssets: {
-                files: {
-                    '<%= dir.staging %><%= dir.assets %>': [
-                        '<%= dir.source %><%= dir.assets %>fonts/**/*',
-                        '<%= dir.source %><%= dir.assets %>images/**/*'
-                    ]
-                }
+                src: [
+                    '<%= dir.source %><%= dir.assets %>fonts/**/*',
+                    '<%= dir.source %><%= dir.assets %>images/**/*'
+                ],
+                dest: '<%= dir.staging %><%= dir.assets %>'
             },
 
-            // wordpress & bones theme
+            // vendor libraries
+            stagingLibs: {
+                options: {
+                    flatten: true
+                },
+                src: [
+                    '<%= dir.vendor %>jquery/jquery.js',
+                    '<%= dir.vendor %>modernizr/modernizr.js',
+                    '<%= dir.vendor %>selectivizr/selectivizr.js'
+                ],
+                dest: '<%= dir.staging %><%= dir.js %><%= dir.vendor %>'
+            },
+
+            // wordpress
             wordpress: {
-                files: {
-                    '<%= dir.deploy %>': [
-                        '<%= dir.vendor %>wordpress/**/*'
-                    ],
-                    '<%= dir.wpTheme %>': [
-                        '<%= dir.vendor %>bones/**/*'
-                    ]
-                }
+                src: [
+                    '<%= dir.vendor %>wordpress/**/*'
+                ],
+                dest: '<%= dir.deploy %>'
+            },
+
+            // wordpress theme
+            wordpressTheme: {
+                src: [
+                    '<%= dir.vendor %><%= dir.theme %>**/*'
+                ],
+                dest: '<%= dir.wpTheme %>'
             },
 
             // fonts, images
             wordpressAssets: {
-                files: {
-                    '<%= dir.wpTheme %>assets/': [
-                        '<%= dir.source %><%= dir.assets %>fonts/**/*',
-                        '<%= dir.source %><%= dir.assets %>images/**/*'
-                    ]
-                }
+                src: [
+                    '<%= dir.source %><%= dir.assets %>fonts/**/*',
+                    '<%= dir.source %><%= dir.assets %>images/**/*'
+                ],
+                dest: '<%= dir.wpTheme %>assets/'
+            },
+
+            // vendor libraries
+            wordpressLibs: {
+                options: {
+                    flatten: true
+                },
+                src: [
+                    '<%= dir.vendor %>jquery/jquery.js',
+                    '<%= dir.vendor %>modernizr/modernizr.js',
+                    '<%= dir.vendor %>selectivizr/selectivizr.js'
+                ],
+                dest: '<%= dir.wpTheme %><%= dir.js %><%= dir.vendor %>'
             }
         },
 
 
-        // concatenate css and js files
+        // concatenate js files (grunt-contrib-concat)
         concat: {
             options: {
                 stripBanners: true,
                 banner: '/*! banner */'
             },
 
-            // static JS and CSS
-            stagingJS: {
+            // static JS
+            staging: {
                 src: [ '<%= dir.source %><%= dir.js %>**/*.js' ],
                 dest: '<%= dir.staging %><%= dir.js %>scripts.js'
             },
-            stagingCSS: {
-                src: [
-                    '<%= dir.vendor %>normalize-css/normalize.css',
-                    '<%= compass.staging.dest %>styles.css'
-                ],
-                dest: '<%= compass.staging.dest %>styles.css'
-            },
 
-            // wordpress JS and CSS
-            wordpressJS: {
+            // wordpress JS
+            wordpress: {
                 src: [ '<%= dir.source %><%= dir.js %>**/*.js' ],
                 dest: '<%= dir.wpTheme %><%= dir.js %>scripts.js'
-            },
-            wordpressCSS: {
-                src: [
-                    '<%= dir.vendor %>normalize-css/normalize.css',
-                    '<%= compass.wordpress.dest %>styles.css'
-                ],
-                dest: '<%= compass.wordpress.dest %>styles.css'
             }
         },
 
 
-        // compile sass files
+        // compile sass files (grunt-compass)
         compass: {
             staging: {
                 src: '<%= dir.source %><%= dir.sass %>',
                 dest: '<%= dir.staging %><%= dir.css %>',
                 outputstyle: 'nested',
-                linecomments: false,
+                linecomments: true,
                 forcecompile: true,
-                debugsass: false,
+                debugsass: true,
                 images: 'dev/assets/sprites' // reicht das? oder muss hier zusätzlich auch 'assets/css-images' eingetragen sein? oder gar nur 'assets/'?
             },
 
             wordpress: {
+                src: '<%= dir.source %><%= dir.sass %>',
+                dest: '<%= dir.wpTheme %><%= dir.css %>',
+                outputstyle: 'nested',
+                linecomments: true,
+                forcecompile: true,
+                debugsass: true,
+                images: 'dev/assets/sprites' // reicht das? oder muss hier zusätzlich auch 'assets/css-images' eingetragen sein? oder gar nur 'assets/'?
+            },
+
+            deploy: {
                 src: '<%= dir.source %><%= dir.sass %>',
                 dest: '<%= dir.wpTheme %><%= dir.css %>',
                 outputstyle: 'compressed',
@@ -162,25 +187,39 @@ module.exports = function(grunt) {
         },
 
 
-        // minify css files for deployment
-        mincss: {
-            wordpress: {
+        jshint: {
+            // grunt: {
+            //     files: {
+            //         src: [
+            //             'Gruntfile.js'
+            //         ]
+            //     },
+            //     options: {
+            //         predef: [
+            //             "module"
+            //         ]
+            //     }
+            // },
+            staging: {
                 files: {
-                    '<%= concat.wordpressCSS.dest %>': [
-                        '<%= concat.wordpressCSS.src %>'
+                    src: [
+                        '<%= dir.source %><%= dir.js %>**/*.js'
                     ]
                 }
+            },
+            options: {
+                jshintrc: '.jshintrc'
             }
         },
 
 
-        // minify js files for deployment
+        // minify js files for deployment (grunt-contrib-uglify)
         uglify: {
-            wordpress: {
+            deploy: {
                 mangle: false,
                 files: {
-                    '<%= concat.wordpressJS.dest %>': [
-                        '<%= concat.wordpressJS.src %>'
+                    '<%= concat.wordpress.dest %>': [
+                        '<%= concat.wordpress.src %>'
                     ]
                 }
             }
@@ -188,7 +227,44 @@ module.exports = function(grunt) {
 
     });
 
+
     // 'default' task
     grunt.registerTask('default', []);
+
+
+    // 'staging' task, used for working on static templates
+    grunt.registerTask('staging', [
+        'clean:staging',      // clean staging dir
+        'copy:staging',       // copy templates
+        'copy:stagingAssets', // copy assets
+        'copy:stagingLibs',   // copy vendor libraries
+        'compass:staging',    // compile Sass (nested with sourcemap)
+        'concat:staging'      // concat JS
+    ]);
+
+
+    // 'wordpress' task, used for working on wordpress theme
+    grunt.registerTask('wordpress', [
+        'clean:wordpress',      // clean deploy dir
+        'copy:wordpress',       // copy wordpress
+        'copy:wordpressTheme',  // copy wordpress theme
+        'copy:wordpressAssets', // copy assets
+        'copy:wordpressLibs',   // copy vendor libraries
+        'compass:wordpress',    // compile Sass (nested with sourcemap)
+        'concat:wordpress'      // concat JS
+    ]);
+
+
+    // 'deploy' task, used for deploying final wordpress installation
+    grunt.registerTask('deploy', [
+        'clean:wordpress',      // clean deploy dir
+        'copy:wordpress',       // copy wordpress
+        'copy:wordpressTheme',  // copy wordpress theme
+        'copy:wordpressAssets', // copy assets to staging
+        'copy:wordpressLibs',   // copy vendor libraries
+        'compass:deploy',       // compile Sass (compressed)
+        'concat:wordpress',     // concat JS
+        'uglify'                // minify JS
+    ]);
 
 };

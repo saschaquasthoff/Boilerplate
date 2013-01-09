@@ -17,8 +17,8 @@
     "grunt-contrib-clean": ">=0.1.0",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": ">=0.2.2",
-    "grunt-contrib-mincss": "*",
-    "grunt-contrib-uglify": "*"
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-jshint": "latest"
   },
   "devDependencies": {
     "grunt": ">=0.4",

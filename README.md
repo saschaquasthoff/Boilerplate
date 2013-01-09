@@ -1,10 +1,34 @@
-Schritte bei der Bearbeitung
-============================
+Workflow-Schritte
+=================
 
 - Erstellung der statischen Templates
+	- clean staging dir
+	- copy templates
+	- copy assets
+	- copy vendor libraries
+	- compile Sass (nested with sourcemap)
+	- concat JS
+	- lint (concatenated) JS (tbd)
 - Erstellung des dynamischen Wordpress-Themes
+	- clean deploy dir
+	- copy wordpress
+	- copy wordpress theme
+	- copy assets
+	- copy vendor libraries
+	- compile Sass (nested with sourcemap)
+	- concat JS
+	- lint (concatenated) JS (tbd)
 - Deployment des optimierten Wordpress-Themes
-
+	- clean deploy dir
+	- copy wordpress
+	- copy wordpress theme
+	- copy assets
+	- copy vendor libraries
+	- compile Sass (compressed)
+	- concat JS
+	- lint (concatenated) JS (tbd)
+	- minify (concatenated) JS
+	- lint (minified) JS (tbd)
 
 
 
@@ -20,8 +44,8 @@ Voraussetzungen und verwendete Tools
     * [grunt-contrib-clean](https://github.com/gruntjs/grunt-contrib-clean)
     * [grunt-contrib-concat](https://github.com/gruntjs/grunt-contrib-concat)
     * [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy)
-    * [grunt-contrib-mincss](https://github.com/gruntjs/grunt-contrib-mincss)
-    * [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify“)
+    * [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
+    * [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint)
 
 
 
@@ -38,6 +62,8 @@ Features
 	- aufräumen des target dir ([Plugin „grunt-contrib-clean“](https://github.com/gruntjs/grunt-contrib-clean))
 	- concatenate js files ([Plugin „grunt-contrib-concat](https://github.com/gruntjs/grunt-contrib-concat))
 	- copy source to target dir ([Plugin „grunt-contrib-copy“](https://github.com/gruntjs/grunt-contrib-copy))
+	- minify CSS ([Plugin „grunt-contrib-mincss“](https://github.com/gruntjs/grunt-contrib-mincss/))
+	- minify JS ([Plugin „grunt-contrib-uglify“](https://github.com/gruntjs/grunt-contrib-uglify))
 
 
 
@@ -102,9 +128,6 @@ verfügbare Grunt-Tasks
 ToDo
 ====
 
-- minify CSS ([Plugin „grunt-contrib-mincss“](https://github.com/gruntjs/grunt-contrib-mincss/))
-- minify JS ([Plugin „grunt-contrib-uglify“](https://github.com/gruntjs/grunt-contrib-uglify))
-- lint CSS ([Plugin „grunt-css“](https://github.com/jzaefferer/grunt-css))
 - ImageOptim ([Plugin „grunt-imagine“](https://github.com/asciidisco/grunt-imagine))
 - reload Server ([Plugin „grunt-reload“](https://github.com/webxl/grunt-reload))
 - JSHint-Config in `.jshintrc` auslagern ([das ist in der aktuellen grunt-Version noch nicht implementiert, kommt aber wohl mit der nächsten Version](https://github.com/gruntjs/grunt/issues/141))
@@ -125,3 +148,4 @@ Ideen
 * dynamische Erstellung von Icon-Fonts per [grunt-webfont](https://github.com/sapegin/grunt-webfont)
 * automatisches Testing von JS per Jasmine (oder ähnlichen Tools)
 * JS-Concat auch per uglify, aber inkl. SourceMaps fürs Staging?
+* lint CSS ([Plugin „grunt-css“](https://github.com/jzaefferer/grunt-css))
