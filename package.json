@@ -13,6 +13,12 @@
     "url": "https://github.com/saschaquasthoff/Boilerplate.git"
   },
   "dependencies": {
+    "grunt-compass": ">=0.3.0",
+    "grunt-contrib-clean": ">=0.1.0",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-copy": ">=0.2.2",
+    "grunt-contrib-mincss": "*",
+    "grunt-contrib-uglify": "*"
   },
   "devDependencies": {
     "grunt": ">=0.4",
