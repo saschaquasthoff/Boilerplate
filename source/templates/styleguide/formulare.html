@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<title>Boilerplate – Formulare</title>
+	<link rel="stylesheet" href="../assets/css/styles.css">
+	<link rel="stylesheet" href="styleguide.css">
+</head>
+<body>
+
+<div id="canvas">
+
+	<section class="baustein">
+		<header>
+			<h1>Texteingabefelder <span>einzeilig &amp; mehrzeilig</span></h1>
+		</header>
+
+		<form>
+			<fieldset>
+				<legend>Eingabefelder</legend>
+
+				<div class="ctrl-group">
+					<label class="ctrl-label" for="text1">einzeiliges Eingabefeld</label>
+					<div class="ctrl-field">
+						<input id="text1" type="text" value="" placeholder="Eingabefeld">
+						<p class="ctrl-hint">
+							Eingabefelder können auch einen Hinweistext enthalten.
+						</p>
+					</div>
+				</div>
+
+				<div class="ctrl-group">
+					<label class="ctrl-label" for="text2">mehrzeiliges<br>Eingabefeld</label>
+					<div class="ctrl-field">
+						<textarea id="text2" rows="3" cols="20"></textarea>
+					</div>
+				</div>
+
+				<div class="ctrl-group">
+					<label class="ctrl-label" for="text3">Dropdown</label>
+					<div class="ctrl-field">
+						<select id="text3">
+							<option>bitte wählen</option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="ctrl-group">
+					<div class="ctrl-field">
+						<input type="radio" name="radio" id="radio1"><label for="radio1">Radiobutton 1</label><br>
+						<input type="radio" name="radio" id="radio2"><label for="radio2">Radiobutton 2</label><br>
+						<input type="radio" name="radio" id="radio3"><label for="radio3">Radiobutton 3</label><br>
+						<input type="radio" name="radio" id="radio4"><label for="radio4">Radiobutton 4</label>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</section>
+
+</div>
+
+</body>
+</html>

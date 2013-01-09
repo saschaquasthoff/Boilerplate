@@ -1,0 +1,24 @@
+#canvas {
+	overflow: hidden;
+}
+
+.baustein {
+	float: left;
+	width: 60%;
+	border: 1px solid #bbb;
+	background: #fff;
+}
+
+.code {
+	float: right;
+	width: 30%;
+}
+
+header h1 {
+	margin-bottom: 1em;
+	font-size: 24px;
+}
+
+.grid-row {
+	background: rgba(255, 90, 90,.5);
+}
