@@ -13,5 +13,8 @@
 # sitemap.xml
 # sitemap.xml.gz
 
-node_modules
-vendor
+node_modules/
+vendor/
+.sass-cache/
+staging/
+deploy/
