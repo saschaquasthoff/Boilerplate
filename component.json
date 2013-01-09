@@ -1,0 +1,12 @@
+{
+  "name": "boilerplate",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "latest",
+    "selectivizr": "latest",
+    "normalize-css": "latest",
+    "modernizr": "latest",
+    "wordpress": "~3.4.2",
+    "bones": "https://github.com/saschaquasthoff/bones.git"
+  }
+}

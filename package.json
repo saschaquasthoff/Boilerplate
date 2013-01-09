@@ -1,0 +1,21 @@
+{
+  "name": "boilerplate",
+  "title": "Boilerplate",
+  "version": "0.0.1",
+  "description": "a grunt build script for my Wordpress boilerplate.",
+  "homepage": "https://github.com/saschaquasthoff/Boilerplate",
+  "author": {
+    "name": "Sascha Quasthoff",
+    "url": "http://www.quasthoff.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saschaquasthoff/Boilerplate.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt": ">=0.4",
+    "sass": "*"
+  }
+}
