@@ -14,6 +14,21 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: '<json:package.json>',
 
+
+        // banner description
+        meta: {
+            banner: '/*!\\n' +
+                ' * @project      <%= pkg.title || pkg.name %>\\n' +
+                ' * @version      v<%= pkg.version %>\\n' +
+                ' * @description  <%= pkg.description %>\\n' +
+                ' * @date         <%= grunt.template.today("dd.mm.yyyy") %>\\n' +
+                '<%= pkg.homepage ? " * @url          " + pkg.homepage + "\\n" : "" %>' +
+                ' * @copyright    (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <<%= pkg.author.url %>>\\n' +
+                ' */'
+        },
+
+
+        // default directories
         dir: {
             // main dirs
             source: 'source/',
@@ -33,14 +48,14 @@ module.exports = function(grunt) {
         },
 
 
-        // clean up deploy directory
+        // clean up deploy dir
         clean: {
             staging: [ '<%= dir.staging %>*' ],
             wordpress: [ '<%= dir.deploy %>*' ]
         },
 
 
-        // copy files from source to deployor staging dir
+        // copy files from source to deploy or staging dir
         copy: {
 
             // static templates and webroot dir files
