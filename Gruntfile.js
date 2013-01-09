@@ -1,8 +1,11 @@
 module.exports = function(grunt) {
 
+
     // Load required tasks
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+
 
     // Config
     grunt.initConfig({
@@ -78,6 +81,41 @@ module.exports = function(grunt) {
                         '<%= dir.source %><%= dir.assets %>images/**/*'
                     ]
                 }
+            }
+        },
+
+
+        // concatenate css and js files
+        concat: {
+            options: {
+                stripBanners: true,
+                banner: '/*! banner */'
+            },
+
+            // static JS and CSS
+            stagingJS: {
+                src: [ '<%= dir.source %><%= dir.js %>**/*.js' ],
+                dest: '<%= dir.staging %><%= dir.js %>scripts.js'
+            },
+            stagingCSS: {
+                src: [
+                    '<%= dir.vendor %>normalize-css/normalize.css',
+                    '<%= compass.staging.dest %>styles.css'
+                ],
+                dest: '<%= compass.staging.dest %>styles.css'
+            },
+
+            // wordpress JS and CSS
+            wordpressJS: {
+                src: [ '<%= dir.source %><%= dir.js %>**/*.js' ],
+                dest: '<%= dir.wpTheme %><%= dir.js %>scripts.js'
+            },
+            wordpressCSS: {
+                src: [
+                    '<%= dir.vendor %>normalize-css/normalize.css',
+                    '<%= compass.wordpress.dest %>styles.css'
+                ],
+                dest: '<%= compass.wordpress.dest %>styles.css'
             }
         }
 
