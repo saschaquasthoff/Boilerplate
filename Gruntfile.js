@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
 
     // Load required tasks
+    grunt.loadNpmTasks('grunt-compass');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -116,6 +117,30 @@ module.exports = function(grunt) {
                     '<%= compass.wordpress.dest %>styles.css'
                 ],
                 dest: '<%= compass.wordpress.dest %>styles.css'
+            }
+        },
+
+
+        // compile sass files
+        compass: {
+            staging: {
+                src: '<%= dir.source %><%= dir.sass %>',
+                dest: '<%= dir.staging %><%= dir.css %>',
+                outputstyle: 'nested',
+                linecomments: false,
+                forcecompile: true,
+                debugsass: false,
+                images: 'dev/assets/sprites' // reicht das? oder muss hier zusätzlich auch 'assets/css-images' eingetragen sein? oder gar nur 'assets/'?
+            },
+
+            wordpress: {
+                src: '<%= dir.source %><%= dir.sass %>',
+                dest: '<%= dir.wpTheme %><%= dir.css %>',
+                outputstyle: 'compressed',
+                linecomments: false,
+                forcecompile: true,
+                debugsass: false,
+                images: 'dev/assets/sprites' // reicht das? oder muss hier zusätzlich auch 'assets/css-images' eingetragen sein? oder gar nur 'assets/'?
             }
         }
 
