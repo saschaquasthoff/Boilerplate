@@ -7,6 +7,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-mincss');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
 
     // Config
@@ -152,6 +153,19 @@ module.exports = function(grunt) {
                 files: {
                     '<%= concat.wordpressCSS.dest %>': [
                         '<%= concat.wordpressCSS.src %>'
+                    ]
+                }
+            }
+        },
+
+
+        // minify js files for deployment
+        uglify: {
+            wordpress: {
+                mangle: false,
+                files: {
+                    '<%= concat.wordpressJS.dest %>': [
+                        '<%= concat.wordpressJS.src %>'
                     ]
                 }
             }
